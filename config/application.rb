@@ -35,6 +35,13 @@ module Startlens
     # Change timezon to JP
     config.time_zone = 'Asia/Tokyo'
 
+    # Transform from snake_case by default to camelCase which can be interpreted by frontend js
+    ActiveModelSerializers.config.key_transform = :camel_lower
+
+    # Show error message in Japanese
+    config.i18n.default_locale = :ja
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.yml').to_s]
+
     # Set rspec settings. Generate rspec files by default and NOT generate Minitest files
     config.generators do |g|
       g.test_framework :rspec,
@@ -43,5 +50,8 @@ module Startlens
       helper_specs: false,
       routing_specs: false
     end
+
+    # Load the lib folder
+    config.autoload_paths << Rails.root.join('lib')
   end
 end
