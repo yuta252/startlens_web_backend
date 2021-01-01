@@ -1,0 +1,33 @@
+# MySQL. Versions 5.1.10 and up are supported.
+#
+# Install the MySQL driver
+#   gem install mysql2
+#
+# Ensure the MySQL gem is defined in your Gemfile
+#   gem 'mysql2'
+#
+# And be sure to use new-style password hashing:
+#   https://dev.mysql.com/doc/refman/5.7/en/password-hashing.html
+#
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  host: <%= ENV['DB_HOST'] %>
+  timeout: 5000
+
+development:
+  <<: *default
+  database: startlens_development
+
+test:
+  <<: *default
+  database: startlens_test
+
+production:
+  <<: *default
+  database: startlens_production
+  username: startlens
+  password: <%= ENV['STARTLENS_DATABASE_PASSWORD'] %>

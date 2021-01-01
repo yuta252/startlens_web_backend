@@ -1,0 +1,45 @@
+version: '3.7'
+
+services:
+  db:
+    image: mysql:8.0.13
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - .:/startlens
+      - log_data:/startlens/log
+      - public_data:/startlens/public
+      - tmp_data:/startlens/tmp
+      - sockets:/startlens/tmp/sockets
+    ports:
+      - "3000:3000"
+    tty: true
+    stdin_open: true
+    depends_on:
+      - db
+    command: bundle exec puma -C config/puma.rb
+  nginx:
+    build:
+      context: .
+      dockerfile: ./nginx/Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+    volumes:
+      - public_data:/startlens/public
+      - tmp_data:/startlens/tmp
+      - sockets:/startlens/tmp/sockets
+volumes:
+  mysql_data:
+  public_data:
+  tmp_data:
+  log_data:
+  sockets:
