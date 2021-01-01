@@ -1,24 +1,24 @@
-# README
+## 概要
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Startlens webアプリのバックエンドAPI。
+APIドキュメントは[こちら](https://startlens-openapi.firebaseapp.com/)をご参照ください。
 
-Things you may want to cover:
+## 環境
 
-* Ruby version
+* Ruby: 2.6.6
 
-* System dependencies
+* Rails: 5.2.4.4
 
-* Configuration
 
-* Database creation
+# 開発環境構築
 
-* Database initialization
+```bash
+$ git clone https://github.com/yuta252/startlens_web_backend.git
 
-* How to run the test suite
+$ docker-compose -f docker-compose-dev.yml build
 
-* Services (job queues, cache servers, search engines, etc.)
+$ docker-compose -f docker-compose-dev.yml exec app rails db:migrate
 
-* Deployment instructions
+$ docker-compose -f docker-compose-dev.yml up -d
+```
 
-* ...
