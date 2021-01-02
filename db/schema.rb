@@ -10,7 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_02_040448) do
+ActiveRecord::Schema.define(version: 2021_01_02_093250) do
+
+  create_table "multi_profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "lang", null: false
+    t.string "username", null: false
+    t.text "self_intro", null: false
+    t.string "address_prefecture"
+    t.string "address_city"
+    t.string "address_street"
+    t.string "entrance_fee"
+    t.string "business_hours"
+    t.string "holiday"
+    t.integer "translated"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "lang"], name: "index_multi_profiles_on_user_id_and_lang", unique: true
+    t.index ["user_id"], name: "index_multi_profiles_on_user_id"
+  end
 
   create_table "profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -33,5 +51,6 @@ ActiveRecord::Schema.define(version: 2021_01_02_040448) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "multi_profiles", "users"
   add_foreign_key "profiles", "users"
 end

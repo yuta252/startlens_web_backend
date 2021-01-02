@@ -3,6 +3,7 @@ ja:
     models:
       user: ユーザー
       profile: プロフィール
+      multi_profile: 多言語プロフィール
     attributes:
       user:
         email: メールアドレス
@@ -11,7 +12,17 @@ ja:
         major_category: カテゴリー
         telephone: 電話番号
         company_site: ホームページ
-
+      multi_profile:
+        lang: 言語
+        username: ユーザー名
+        self_intro: ユーザー説明文
+        address_prefecture: 都道府県
+        address_city: 市区町村
+        address_street: 番地
+        entrance_fee: 料金
+        business_hours: 営業時間
+        holiday: 休日
+        translated: 翻訳フラグ
   errors:
     messages:
       carrierwave_processing_error: 処理できませんでした

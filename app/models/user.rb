@@ -12,5 +12,5 @@ class User < ApplicationRecord
             allow_nil: true
 
   has_one :profile, dependent: :destroy
-  # has_many :multi_profiles, dependent: :destroy
+  has_many :multi_profiles, dependent: :destroy
 end
