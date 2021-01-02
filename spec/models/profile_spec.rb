@@ -5,8 +5,14 @@ RSpec.describe Profile, type: :model do
     let(:user) { FactoryBot.create(:user) }
 
     context "to be valid" do
-      it "major_category, telephone, company_site" do
+      it "with major_category, telephone, company_site" do
         profile = build(:profile, user_id: user.id)
+        expect(profile).to be_valid
+      end
+
+      it "with thumbnail" do
+        encoded_image = encode("sample_test.png")
+        profile = build(:profile, user_id: user.id, image_file: encoded_image)
         expect(profile).to be_valid
       end
     end

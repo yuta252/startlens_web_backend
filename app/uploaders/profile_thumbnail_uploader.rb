@@ -3,9 +3,8 @@ class ProfileThumbnailUploader < CarrierWave::Uploader::Base
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
 
-  # Choose what kind of storage to use for this uploader:
-  storage :file
-  # storage :fog
+  # Convert jpg format and then save
+  process convert: "jpg"
 
   # Exif情報のOrientationを利用して正しい方向に回転させExif情報を削除する
   process :fix_exif_rotation_and_strip_exif
