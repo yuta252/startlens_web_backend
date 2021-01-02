@@ -53,5 +53,6 @@ module Startlens
 
     # Load the lib folder
     config.autoload_paths << Rails.root.join('lib')
+    config.autoload_paths << Rails.root.join('app', 'uploaders')
   end
 end
