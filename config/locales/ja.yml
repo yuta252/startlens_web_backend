@@ -2,7 +2,12 @@ ja:
   activerecord:
     models:
       user: ユーザー
+      profile: プロフィール
     attributes:
       user:
         email: メールアドレス
         password: パスワード
+      profile:
+        major_category: カテゴリー
+        telephone: 電話番号
+        company_site: ホームページ
