@@ -1,0 +1,496 @@
+openapi: 3.0.1
+info:
+  title: Startlens web API
+  description: This is a Startlens web backend API document. For more details, you
+    can refer to [GitHub](https://github.com/yuta252/startlens_rails_api).
+  contact:
+    email: nakano.yuta252@gmail.com
+  version: 1.0.0
+externalDocs:
+  description: Find out more about details
+  url: https://github.com/yuta252/startlens_rails_api
+servers:
+- url: https://startlens.com/api/v1
+- url: http://startlens.com/api/v1
+tags:
+- name: token
+  description: Generate JWT authentication token
+- name: user
+  description: Operations about user
+- name: profile
+  description: Operations about user profile
+- name: multi_profile
+  description: Operations about user profile related to multi-language information
+paths:
+  /token:
+    post:
+      tags:
+      - token
+      summary: Generate a new token to signin
+      operationId: generateToken
+      requestBody:
+        description: Email address and password is required to create a new token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Auth'
+        required: true
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Jwt'
+        401:
+          description: Invalid input
+          content: {}
+  /users:
+    post:
+      tags:
+      - user
+      summary: Craete user
+      operationId: createUser
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Auth'
+        required: true
+      responses:
+        201:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        422:
+          description: Invalid input(Unprocessable_entity)
+          content: {}
+  /users/{userid}:
+    get:
+      tags:
+      - user
+      summary: Get user by userid
+      operationId: getUserById
+      parameters:
+      - name: userid
+        in: path
+        description: UserId is required to fetch user data.
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        404:
+          description: User not found
+          content: {}
+      security:
+      - bearerAuth: []
+    put:
+      tags:
+      - user
+      summary: Updated user by userid
+      operationId: updateUserById
+      parameters:
+      - name: userid
+        in: path
+        description: UserId is required to update user data.
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        description: Updated user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Auth'
+        required: true
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        403:
+          description: Forbidden operation
+          content: {}
+        404:
+          description: User not found
+          content: {}
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - user
+      summary: Delete user by userid
+      operationId: deleteUserById
+      parameters:
+      - name: userid
+        in: path
+        description: UserId is required to delete user data.
+        required: true
+        schema:
+          type: integer
+      responses:
+        204:
+          description: Successful operation(no_content)
+          content: {}
+        403:
+          description: Forbidden operation
+          content: {}
+        404:
+          description: User not found
+          content: {}
+      security:
+      - bearerAuth: []
+  /profiles/{profileid}:
+    get:
+      tags:
+      - profile
+      summary: Get profile by profileid
+      operationId: getProfileById
+      parameters:
+      - name: profileid
+        in: path
+        description: ProfileId is required to fetch profile data.
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+        403:
+          description: Forbidden operation
+          content: {}
+        404:
+          description: Profile not found
+          content: {}
+      security:
+      - bearerAuth: []
+    put:
+      tags:
+      - profile
+      summary: Updated profile by profileid
+      operationId: updateProfileById
+      parameters:
+      - name: profileid
+        in: path
+        description: ProfileId is required to update profile data.
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        description: Updated profile object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutProfile'
+        required: true
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+        403:
+          description: Forbidden operation
+          content: {}
+        404:
+          description: Profile not found
+          content: {}
+        422:
+          description: Unprocessble entity
+          content: {}
+      security:
+      - bearerAuth: []
+  /multi_profiles:
+    get:
+      tags:
+      - multi_profile
+      summary: Get all multi_profiles associated with user
+      operationId: getAllMultiProfiles
+      parameters: []
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MultiProfile'
+        403:
+          description: Forbidden operation
+          content: {}
+        404:
+          description: Multi profile not found
+          content: {}
+      security:
+      - bearerAuth: []
+    post:
+      tags:
+      - multi_profile
+      summary: Craete multi-language profile
+      operationId: createMultiProfile
+      requestBody:
+        description: Created multi profile object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostMultiProfile'
+        required: true
+      responses:
+        201:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MultiProfile'
+        403:
+          description: Forbidden operation
+          content: {}
+        404:
+          description: Multi profile not found
+          content: {}
+        422:
+          description: Invalid parameters(Unprocessble entity)
+          content: {}
+      security:
+      - bearerAuth: []
+  /multi_profiles/{multiprofileid}:
+    put:
+      tags:
+      - multi_profile
+      summary: Updated multi language profile by multiprofileid
+      operationId: updateMultiProfileById
+      parameters:
+      - name: multiprofileid
+        in: path
+        description: MultiProfileId is required to update multi language profile data.
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        description: Updated multi_profile object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostMultiProfile'
+        required: true
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MultiProfile'
+        403:
+          description: Forbidden operation
+          content: {}
+        404:
+          description: Profile not found
+          content: {}
+        422:
+          description: Unprocessble entity
+          content: {}
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - multi_profile
+      summary: Delete multi_profile by multiprofileid
+      operationId: deleteMultiProfileById
+      parameters:
+      - name: multiprofileid
+        in: path
+        description: MultiprofileId is required to delete multi language profile data.
+        required: true
+        schema:
+          type: integer
+      responses:
+        204:
+          description: Successful operation(no_content)
+          content: {}
+        403:
+          description: Forbidden operation
+          content: {}
+        404:
+          description: User not found
+          content: {}
+      security:
+      - bearerAuth: []
+    
+components:
+  schemas:
+    Jwt:
+      type: object
+      properties:
+        token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE2MDY0MDM2NjZ9.Qt4yuCKsKw6oPi6cykR8_BlCdSdmt5MTdDpipBFBAvk
+        email:
+          type: string
+          example: info@startlens.com
+    Auth:
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        user:
+          type: object
+          properties:
+            email:
+              type: string
+              example: info@startlens.com
+            password:
+              type: string
+              example: startlens
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        email:
+          type: string
+          example: info@startlens.com
+    Profile:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        userId:
+          type: integer
+          format: int64
+          example: 1
+        majorCategory:
+          type: integer
+          format: int64
+          example: 3
+        telephone:
+          type: string
+          example: 08033467891
+        campanySite:
+          type: string
+          example: https://startlens.com
+        thumbnail:
+          type: object
+          properties:
+            url:
+              type: string
+              example: /uploads/profile/thumbnail/2/1_uuid.jpg
+    PutProfile:
+      type: object
+      properties:
+        major_category:
+          type: integer
+          format: int64
+          example: 3
+        telephone:
+          type: string
+          example: 08033467891
+        campany_site:
+          type: string
+          example: https://startlens.com
+        image_file:
+          type: string
+          format: byte
+          example: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAawAAAGqCAYAAABXkXCxAAAABGdBTUEAALGPC/
+    MultiProfile:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        user_id:
+          type: integer
+          format: int64
+          example: 1
+        username:
+          type: string
+          example: 明治神宮
+        self_intro:
+          type: string
+          example: 明治神宮は大正9年11月1日に建立され、明治天皇を奉る。
+        address_prefecture:
+          type: string
+          example: 東京都
+        address_city:
+          type: string
+          example: 渋谷区代々木上原
+        address_street:
+          type: string
+          example: 1-1
+        entrance_fee:
+          type: string
+          example: 大人300円、子供600円
+        business_hours:
+          type: string
+          example: 月〜水曜10:00-22:00
+        holiday:
+          type: string
+          example: 毎週月曜日
+        translated:
+          type: integer
+          example: 0
+    PostMultiProfile:
+      type: object
+      required:
+      - username
+      - self_intro
+      - translated
+      properties:
+        multi_profile:
+          type: object
+          properties:
+            username:
+              type: string
+              example: 明治神宮
+            self_intro:
+              type: string
+              example: 明治神宮は大正9年11月1日に建立され、明治天皇を奉る。
+            address_prefecture:
+              type: string
+              example: 東京都
+            address_city:
+              type: string
+              example: 渋谷区代々木上原
+            address_street:
+              type: string
+              example: 1-1
+            entrance_fee:
+              type: string
+              example: 大人300円、子供600円
+            business_hours:
+              type: string
+              example: 月〜水曜10:00-22:00
+            holiday:
+              type: string
+              example: 毎週月曜日
+            translated:
+              type: integer
+              example: 0
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
