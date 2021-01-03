@@ -19,18 +19,22 @@ class Api::V1::UsersController < ApplicationController
           # Continue to create user profile when user account is created
           @profile = Profile.new
           @profile.user_id = @user.id
-          if @profile.save
+          # Set "" as default value because text data type cannot be set by deafult
+          @profile.company_site = ""
+          # Set "" by default and then skip validation
+          if @profile.save(validate: false)
             user_serializer = parse_json(@user)
             render json: user_serializer, status: :created
           else
             raise ActiveRecord::RecordInvalid
           end
         else
+          logger.debug("User model isn't create: #{@user.errors.messages}")
           render json: { errors: @user.errors }, status: :unprocessable_entity
         end
       end
     rescue => exception
-      logger.debug("Profile model isn't created although user model is created: #{exception}")
+      logger.debug("Profile model isn't created although user model is created: variable #{@profile.errors.full_messages}, error: #{exception}")
       render json: { errors: @profile.errors }, status: :unprocessable_entity
     end
   end

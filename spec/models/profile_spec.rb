@@ -21,13 +21,13 @@ RSpec.describe Profile, type: :model do
       it "with a major_category less than 0" do
         profile = build(:profile, major_category: -1)
         profile.valid?
-        expect(profile.errors[:major_category]).to include("カテゴリーは0〜13の数字を入力してください。")
+        expect(profile.errors[:major_category]).to include("カテゴリーは0〜14の数字を入力してください。")
       end
 
       it "with a major_category more than 13" do
-        profile = build(:profile, major_category: 14)
+        profile = build(:profile, major_category: 15)
         profile.valid?
-        expect(profile.errors[:major_category]).to include("カテゴリーは0〜13の数字を入力してください。")
+        expect(profile.errors[:major_category]).to include("カテゴリーは0〜14の数字を入力してください。")
       end
 
       it "with an inappropreate telephone number" do
