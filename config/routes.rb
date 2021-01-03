@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       match '*path' => 'options_request#preflight', via: :options
 
       post '/token', to: 'tokens#create', as: :tokens
+      get '/load', to: 'users#load', as: :load
       resources :users, only: [:create, :update]
       resources :profiles, only: [:show, :update]
       resources :multi_profiles, only: [:index, :create, :update, :destroy]

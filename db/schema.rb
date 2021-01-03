@@ -32,10 +32,10 @@ ActiveRecord::Schema.define(version: 2021_01_02_093250) do
 
   create_table "profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.integer "major_category"
+    t.integer "major_category", default: 0
     t.decimal "latitude", precision: 10
     t.decimal "longitude", precision: 10
-    t.string "telephone"
+    t.string "telephone", default: ""
     t.text "company_site"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
