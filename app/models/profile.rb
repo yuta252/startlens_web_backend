@@ -6,11 +6,11 @@ class CarrierStringIO < StringIO
   # end
 
   def original_filename
-    "photo.png"
+    "photo.jpg"
   end
 
   def content_type
-    "image/png"
+    "image/jpg"
   end
 end
 
@@ -20,7 +20,7 @@ class Profile < ApplicationRecord
   attr_accessor :image_file
 
   validates :user_id, presence: true, uniqueness: true
-  validates :major_category, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 14, message: "%{attribute}は0〜14の数字を入力してください。" }, allow_nil: true
+  validates :major_category, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 34, message: "%{attribute}は0〜34の数字を入力してください。" }, allow_nil: true
   VALID_PHONE_REGEX = /\A\d{10}$|^\d{11}\z/
   validates :telephone, format: { with: VALID_PHONE_REGEX, message: "ハイフンなしの正しいフォーマットで入力してください。" }, allow_nil: true
   VALID_URL_REGEX = /\A#{URI::regexp(%w(http https))}\z/
