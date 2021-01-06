@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       resources :users, only: [:create, :update]
       resources :profiles, only: [:show, :update]
       resources :multi_profiles, only: [:index, :create, :update, :destroy]
+      resources :exhibits, only: [:index, :create, :update, :destroy]
     end
   end
 end

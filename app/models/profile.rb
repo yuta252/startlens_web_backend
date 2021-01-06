@@ -1,10 +1,4 @@
 class CarrierStringIO < StringIO
-  # def initialize(*args)
-  #   super(*args[2..-1])
-  #   @filename = args[0]
-  #   @content_type = args[1]
-  # end
-
   def original_filename
     "photo.jpg"
   end

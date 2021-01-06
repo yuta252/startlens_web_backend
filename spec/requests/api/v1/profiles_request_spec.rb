@@ -12,7 +12,6 @@ RSpec.describe "Api::V1::Profiles", type: :request do
         get api_v1_profile_url(@profile.id),
             headers: { Authorization: JsonWebToken.encode(user_id: @user.id)}
         expect(response).to have_http_status(:success)
-        json = JSON.parse(response.body)
       end
     end
 

@@ -2,6 +2,7 @@ class Api::V1::MultiProfilesController < ApplicationController
   before_action :check_login, only: [:index, :create, :update, :destroy]
   before_action :set_multi_profile, only: [:update, :destroy]
   before_action :check_owner, only: [:update, :destroy]
+  before_action :snakeize_params, only: [:create, :update]
 
   def index
     multi_profile = current_user.multi_profiles
@@ -36,7 +37,7 @@ class Api::V1::MultiProfilesController < ApplicationController
   private
 
   def multi_profile_params
-    params.require(:multi_profile).permit(:lang, :username, :self_intro, :address_prefecture, :address_city, :address_street, :entrance_fee, :business_hours, :holiday, :translated)
+    params.require(:multi_profile).permit(:id, :lang, :username, :self_intro, :address_prefecture, :address_city, :address_street, :entrance_fee, :business_hours, :holiday, :translated)
   end
 
   def set_multi_profile
