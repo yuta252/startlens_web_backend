@@ -13,4 +13,5 @@ class User < ApplicationRecord
 
   has_one :profile, dependent: :destroy
   has_many :multi_profiles, dependent: :destroy
+  has_many :exhibits, dependent: :destroy
 end

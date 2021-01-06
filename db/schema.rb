@@ -10,7 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_02_093250) do
+ActiveRecord::Schema.define(version: 2021_01_05_162949) do
+
+  create_table "exhibits", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_exhibits_on_user_id"
+  end
+
+  create_table "multi_exhibits", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "exhibit_id", null: false
+    t.string "lang", null: false
+    t.string "name", null: false
+    t.text "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exhibit_id"], name: "index_multi_exhibits_on_exhibit_id"
+  end
 
   create_table "multi_profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -28,6 +45,14 @@ ActiveRecord::Schema.define(version: 2021_01_02_093250) do
     t.datetime "updated_at", null: false
     t.index ["user_id", "lang"], name: "index_multi_profiles_on_user_id_and_lang", unique: true
     t.index ["user_id"], name: "index_multi_profiles_on_user_id"
+  end
+
+  create_table "pictures", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "exhibit_id", null: false
+    t.string "image", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exhibit_id"], name: "index_pictures_on_exhibit_id"
   end
 
   create_table "profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -51,6 +76,9 @@ ActiveRecord::Schema.define(version: 2021_01_02_093250) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "exhibits", "users"
+  add_foreign_key "multi_exhibits", "exhibits"
   add_foreign_key "multi_profiles", "users"
+  add_foreign_key "pictures", "exhibits"
   add_foreign_key "profiles", "users"
 end
