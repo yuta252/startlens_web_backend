@@ -34,7 +34,7 @@ Instagramはユーザー同士が写真を投稿し楽しむことが利用用�
 
 
 
-## チャレンジ要素一覧
+## 機能一覧
 <https://docs.google.com/spreadsheets/d/1ZkRBoDHrSGZKMspNmfvi_UQZ5BktbQoqcuUHHUlB8IQ/edit?usp=sharing>
 
 ## 開発環境
