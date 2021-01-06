@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       resources :profiles, only: [:show, :update]
       resources :multi_profiles, only: [:index, :create, :update, :destroy]
       resources :exhibits, only: [:index, :create, :update, :destroy]
+      resources :multi_exhibits, only: [:create, :update, :destroy]
     end
   end
 end
