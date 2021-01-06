@@ -46,6 +46,26 @@ RSpec.describe "Api::V1::Exhibits", type: :request do
     end
   end
 
+  describe "PATCH /api/v1/exhibits" do
+    let(:user) { FactoryBot.create(:user) }
+    let(:encoded_image) { encode("sample_test.png") }
+    let(:encoded_image2) { encode("sample_test2.png") }
+
+    context "valid with parameter" do
+      it "responds successfully" do
+        post api_v1_exhibits_url, params: { exhibit: {lang: "ja", name: "sample_name", description: "sample_description", image_file: [encoded_image, encoded_image2]} },
+                headers: { Authorization: JsonWebToken.encode(user_id: user.id)}
+        json = JSON.parse(response.body)
+        exhibit_id = json["id"]
+        expect{
+          patch api_v1_exhibit_url(exhibit_id), params: { exhibit: { image_file: [encoded_image]} },
+                headers: { Authorization: JsonWebToken.encode(user_id: user.id)}
+        }.to change(Picture, :count).by(-1)
+        expect(response).to have_http_status(:success)
+      end
+    end
+  end
+
   describe "DELETE /api/v1/exhibits" do
     before do
       @user = FactoryBot.create(:user)

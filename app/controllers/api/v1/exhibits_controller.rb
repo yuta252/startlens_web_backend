@@ -40,6 +40,25 @@ class Api::V1::ExhibitsController < ApplicationController
     end
   end
 
+  # Implement updating pictures only at this action execpt for multi_exhibit
+  # At first, delete all pictures related to the exhibit and then save new pictures
+  # Implement transaction process below
+  def update
+    begin
+      @exhibit.pictures.destroy_all
+      if Picture.create_pictures(@exhibit.id, params[:exhibit])
+        exhibit_serializer = parse_json(@exhibit)
+        render json: exhibit_serializer, status: :created
+      else
+        logger.debug("failed to save all pictures")
+        raise ActiveRecord::RecordInvalid
+      end
+    rescue => exception
+      logger.debug("exhibit update transaction failed: #{exception}")
+      render json: { errors: @exhibit.errors }, status: :unprocessable_entity
+    end
+  end
+
   def destroy
     @exhibit.destroy
     render json: {}, status: :no_content
