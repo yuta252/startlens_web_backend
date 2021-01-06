@@ -1,24 +1,45 @@
-## 概要
+# Startlens
 
-Startlens webアプリのバックエンドAPI。
-APIドキュメントは[こちら](https://startlens-openapi.firebaseapp.com/)をご参照ください。
+## サイト概要
 
-## 環境
+オンラインからサイトの観光地の写真を閲覧することで擬似的にオンラインで観光ツアーを体験できるアプリです。
 
-* Ruby: 2.6.6
+### サイトテーマ
 
-* Rails: 5.2.4.4
+写真からお気に入りの観光地を見つけてコロナ後に訪問しよう
+
+### テーマを選んだ理由
+
+コロナ化の旅行者数減少の中で、観光事業者（以下、事業者）にとってafterコロナに向けてwithコロナ期にどのような対策を取るのかが非常に重要となってきます。
+またオンライン観光ツアーを利用するユーザー（以下、ユーザー）にとっても旅行等の移動が制限されている中で、擬似的な観光ニーズはより深まっていくだろうと想定してます。
+そこで、事業者が写真及び説明文を投稿し、それをユーザーが閲覧することで擬似的な観光をオンライン上で行い、afterコロナ後に再び観光への移動を促進するために少しでも役に立てればとの想いで制作しています。
+
+### ターゲットユーザ
+
+* 事業者
+
+ - 日本全国各地の観光事業者
+
+* ユーザー
+
+ - Instagramなど日常的に写真を見ることが好きな層
+
+### 主な利用シーン
+
+Instagramはユーザー同士が写真を投稿し楽しむことが利用用途であるが、観光地ごとに情報や写真がまとまっていない。
+また最近はオンライン観光ツアーを旅行会社が企画しているが、マネタイズがしやすい企画やプロジェクトベースである。
+そこで本アプリでは、ユーザーが写真からお気に入りの事業者を見つけ、写真の閲覧や観光ガイド（文字情報）を閲覧することを想定している。
+
+## 設計書
 
 
-# 開発環境構築
 
-```bash
-$ git clone https://github.com/yuta252/startlens_web_backend.git
+## チャレンジ要素一覧
+<https://docs.google.com/spreadsheets/d/1ZkRBoDHrSGZKMspNmfvi_UQZ5BktbQoqcuUHHUlB8IQ/edit?usp=sharing>
 
-$ docker-compose -f docker-compose-dev.yml build
-
-$ docker-compose -f docker-compose-dev.yml exec app rails db:migrate
-
-$ docker-compose -f docker-compose-dev.yml up -d
-```
-
+## 開発環境
+- OS：MacOS v10.15.7
+- 言語：HTML,CSS,JavaScript,Ruby,SQL
+- フレームワーク：Ruby on Rails
+- JSライブラリ：React.js
+- IDE：VScode
