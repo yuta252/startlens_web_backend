@@ -16,6 +16,7 @@ class ExhibitSerializer < ActiveModel::Serializer
   #   multi_exhibits: [
   #     {
   #       id: multi_exhibit_id,
+  #       exhibit_id: exhibit_id
   #       lang: "ja",
   #       name: "xxxx",
   #       description: "xxxx"

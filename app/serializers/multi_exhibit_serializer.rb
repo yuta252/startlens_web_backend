@@ -1,3 +1,3 @@
 class MultiExhibitSerializer < ActiveModel::Serializer
-  attributes :id, :lang, :name, :description
+  attributes :id, :exhibit_id, :lang, :name, :description
 end
