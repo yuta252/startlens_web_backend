@@ -47,8 +47,9 @@ class Api::V1::ExhibitsController < ApplicationController
     begin
       @exhibit.pictures.destroy_all
       if Picture.create_pictures(@exhibit.id, params[:exhibit])
+        @exhibit.reload
         exhibit_serializer = parse_json(@exhibit)
-        render json: exhibit_serializer, status: :created
+        render json: exhibit_serializer, status: :ok
       else
         logger.debug("failed to save all pictures")
         raise ActiveRecord::RecordInvalid

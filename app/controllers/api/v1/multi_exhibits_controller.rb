@@ -32,7 +32,7 @@ class Api::V1::MultiExhibitsController < ApplicationController
   private
 
   def multi_exhibit_params
-    params.require(:multi_exhibit).permit(:exhibit_id, :lang, :name, :description)
+    params.require(:multi_exhibit).permit(:id, :exhibit_id, :lang, :name, :description)
   end
 
   def set_multi_exhibit
