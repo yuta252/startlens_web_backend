@@ -4,10 +4,17 @@ class Api::V1::ExhibitsController < ApplicationController
   before_action :check_owner, only: [:update, :destroy]
   before_action :snakeize_params, only: [:create, :update]
 
+  include Paginable
+
   def index
-    exhibit = current_user.exhibits
-    exhibit_serializer = parse_json(exhibit)
-    render json: exhibit_serializer, status: :ok
+    exhibits = current_user.exhibits.page(current_page).per(per_page)
+
+    options = {
+      params: {
+        last: exhibits.total_pages
+      }
+    }
+    render json: exhibits, root: "data", each_serializer: ExhibitSerializer, meta: options, adapter: :json
   end
 
   # At create action, save exhibit, picture, multi_exhibit (in this order) in a series of processing.

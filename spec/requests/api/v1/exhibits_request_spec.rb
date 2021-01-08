@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Api::V1::Exhibits", type: :request do
 
-  describe "GET /api/v1/exhibits" do
+  describe "GET /api/v1/exhibits", focus:true do
     before do
       @user = FactoryBot.create(:user)
       exhibit = FactoryBot.create(:exhibit, user_id: @user.id)
