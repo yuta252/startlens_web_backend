@@ -28,6 +28,7 @@ test:
 
 production:
   <<: *default
-  database: startlens_production
-  username: startlens
-  password: <%= ENV['STARTLENS_DATABASE_PASSWORD'] %>
+  database: <%= ENV['DB_DATABASE_PROD']%>
+  username: <%= ENV['DB_USERNAME_PROD'] %>
+  password: <%= ENV['DB_PASSWORD_PROD'] %>
+  host: <%= ENV['DB_HOST_PROD'] %>

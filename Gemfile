@@ -28,6 +28,8 @@ gem 'rack-cors'
 gem 'kaminari'
 # Handling environment variables
 gem 'dotenv-rails'
+# Use S3 bucket to upload images
+gem 'fog-aws'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
