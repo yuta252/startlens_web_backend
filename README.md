@@ -1,24 +1,45 @@
-# README
+# Startlens
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## サイト概要
 
-Things you may want to cover:
+オンラインからサイトの観光地の写真を閲覧することで擬似的にオンラインで観光ツアーを体験できるアプリです。
 
-* Ruby version
+### サイトテーマ
 
-* System dependencies
+写真からお気に入りの観光地を見つけてコロナ後に訪問しよう
 
-* Configuration
+### テーマを選んだ理由
 
-* Database creation
+コロナ化の旅行者数減少の中で、観光事業者（以下、事業者）にとってafterコロナに向けてwithコロナ期にどのような対策を取るのかが非常に重要となってきます。
+またオンライン観光ツアーを利用するユーザー（以下、ユーザー）にとっても旅行等の移動が制限されている中で、擬似的な観光ニーズはより深まっていくだろうと想定してます。
+そこで、事業者が写真及び説明文を投稿し、それをユーザーが閲覧することで擬似的な観光をオンライン上で行い、afterコロナ後に再び観光への移動を促進するために少しでも役に立てればとの想いで制作しています。
 
-* Database initialization
+### ターゲットユーザ
 
-* How to run the test suite
+* 事業者
 
-* Services (job queues, cache servers, search engines, etc.)
+日本全国各地の観光事業者
 
-* Deployment instructions
+* ユーザー
 
-* ...
+Instagramなど日常的に写真を見ることが好きな層
+
+### 主な利用シーン
+
+Instagramはユーザー同士が写真を投稿し楽しむことが利用用途であるが、観光地ごとに情報や写真がまとまっていない。
+また最近はオンライン観光ツアーを旅行会社が企画しているが、マネタイズがしやすい企画やプロジェクトベースである。
+そこで本アプリでは、ユーザーが写真からお気に入りの事業者を見つけ、写真の閲覧や観光ガイド（文字情報）を閲覧することを想定している。
+
+## 設計書
+
+
+
+## 機能一覧
+<https://docs.google.com/spreadsheets/d/1ZkRBoDHrSGZKMspNmfvi_UQZ5BktbQoqcuUHHUlB8IQ/edit?usp=sharing>
+
+## 開発環境
+- OS：MacOS v10.15.7
+- 言語：HTML,CSS,JavaScript,Ruby,SQL
+- フレームワーク：Ruby on Rails
+- JSライブラリ：React.js
+- IDE：VScode
