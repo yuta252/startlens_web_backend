@@ -2,7 +2,7 @@ require 'carrierwave/storage/abstract'
 require 'carrierwave/storage/file'
 require 'carrierwave/storage/fog'
 
-unless Rails.env.development? || Rails.env.test?
+if Rails.env.production?
   CarrierWave.configure do |config|
     config.storage = :fog
     config.fog_provider = 'fog/aws'
@@ -18,5 +18,9 @@ unless Rails.env.development? || Rails.env.test?
 
     # save cache in S3
     config.cache_storage = :fog
+  end
+else
+  CarrierWave.configure do |config|
+    config.asset_host = 'http://0.0.0.0:80'
   end
 end
