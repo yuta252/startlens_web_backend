@@ -14,4 +14,28 @@ class User < ApplicationRecord
   has_one :profile, dependent: :destroy
   has_many :multi_profiles, dependent: :destroy
   has_many :exhibits, dependent: :destroy
+
+  scope :with_profile, -> { joins(:profile) }
+  scope :with_multi_profile, -> { joins(:multi_profiles) }
+  scope :extract_by_count, lambda { |keyword|
+    order(created_at: :desc).limit(keyword)
+  }
+  scope :filter_by_category, lambda { |keyword|
+    where('major_category LIKE ?', "#{keyword}")
+  }
+  scope :filter_by_username, lambda { |keyword|
+    where('username LIKE ?', "%#{keyword}%")
+  }
+  scope :filter_by_prefecture, lambda { |keyword|
+    where('address_prefecture LIKE ?', "%#{keyword}%")
+  }
+
+  def self.search(params={})
+    spots = User.all
+    spots = spots.extract_by_count(params[:items].to_i) if params[:items]
+    spots = spots.with_profile.filter_by_category(params[:category]) if params[:category]
+    spots = spots.with_multi_profile.filter_by_username(params[:query]) if params[:query]
+    spots = spots.with_multi_profile.filter_by_prefecture(params[:prefecture]) if params[:prefecture]
+    spots
+  end
 end
