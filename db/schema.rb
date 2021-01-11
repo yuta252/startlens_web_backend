@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_05_162949) do
+ActiveRecord::Schema.define(version: 2021_01_11_100942) do
 
   create_table "exhibits", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -43,8 +43,10 @@ ActiveRecord::Schema.define(version: 2021_01_05_162949) do
     t.integer "translated"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["address_prefecture"], name: "index_multi_profiles_on_address_prefecture"
     t.index ["user_id", "lang"], name: "index_multi_profiles_on_user_id_and_lang", unique: true
     t.index ["user_id"], name: "index_multi_profiles_on_user_id"
+    t.index ["username"], name: "index_multi_profiles_on_username"
   end
 
   create_table "pictures", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -65,6 +67,7 @@ ActiveRecord::Schema.define(version: 2021_01_05_162949) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "thumbnail"
+    t.index ["major_category"], name: "index_profiles_on_major_category"
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
