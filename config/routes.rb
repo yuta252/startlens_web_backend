@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
       namespace :tourist do
         resources :spots, only: [:index]
+        resources :exhibits, only: [:show]
       end
     end
   end
