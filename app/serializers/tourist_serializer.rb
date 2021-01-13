@@ -1,3 +1,3 @@
 class TouristSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :email, :username, :sex, :birth, :country, :lang
 end

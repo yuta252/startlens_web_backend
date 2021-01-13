@@ -12,8 +12,10 @@ Rails.application.routes.draw do
       resources :multi_exhibits, only: [:create, :update, :destroy]
 
       namespace :tourist do
+        post '/token', to: 'tokens#create', as: :tokens
         resources :spots, only: [:index]
         resources :exhibits, only: [:show]
+        resources :tourists, only: [:create, :update]
       end
     end
   end

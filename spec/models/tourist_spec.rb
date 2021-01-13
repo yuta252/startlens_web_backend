@@ -2,9 +2,17 @@ require 'rails_helper'
 
 RSpec.describe Tourist, type: :model do
   describe "is created" do
+    let(:tourist) { FactoryBot.create(:tourist) }
+
     context "to be valid" do
-      it "email, password, username" do
+      it "with email, password, username, sex, birth, country, lang" do
         expect(build(:tourist)).to be_valid
+      end
+
+      it "with thumbnail" do
+        encoded_image = encode("sample_test.png")
+        tourist = build(:tourist, image_file: encoded_image)
+        expect(tourist).to be_valid
       end
     end
 

@@ -9,4 +9,9 @@ FactoryBot.define do
     lang { "en" }
     is_active { true }
   end
+
+  factory :tourist1, class: Tourist do
+    sequence(:email) { |n| "sample#{n}@gmail.com" }
+    password { "sampletest" }
+  end
 end

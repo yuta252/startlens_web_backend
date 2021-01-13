@@ -1,5 +1,6 @@
 class Tourist < ApplicationRecord
   require './app/utils/carrier_string'
+  include CarrierwaveBase64Uploader
 
   attr_accessor :image_file
 
