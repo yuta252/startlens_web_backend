@@ -10,7 +10,7 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
     if Rails.env.production?
       origins 'http://startlens.com.s3-website-ap-northeast-1.amazonaws.com/'
     else
-      origins 'http://localhost:4000'
+      origins '*'
     end
 
     resource '*',
