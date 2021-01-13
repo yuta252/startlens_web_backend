@@ -5,6 +5,10 @@ ja:
       profile: プロフィール
       multi_profile: 多言語プロフィール
       multi_exhibit: 多言語対象物
+      tourist: ユーザー
+      review: レビュー
+      favorite: お気に入り
+      exhibit_favorite: お気に入り
     attributes:
       user:
         email: メールアドレス
@@ -28,6 +32,14 @@ ja:
         lang: 言語
         name: 対象物の名称
         description: 対象物の説明
+      tourist:
+        email: メールアドレス
+        password: パスワード
+        username: ユーザー名
+        sex: 性別
+        birth: 生年
+        country: 国
+        lang: 言語
   errors:
     messages:
       carrierwave_processing_error: 処理できませんでした
