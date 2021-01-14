@@ -4,6 +4,14 @@ class Api::V1::Tourist::TouristsController < ApplicationController
   before_action :check_owner, only: [:update]
   before_action :snakeize_params, only: [:update]
 
+  def load
+    if current_tourist.nil?
+      render json: { id: 0, email: "", username: "", thumbnail_url: "", sex: 0, birth: 0, country: "", lang: "" }, status: :ok
+    end
+    tourist_serializer = parse_json(current_tourist)
+    render json: tourist_serializer, status: :ok
+  end
+
   def create
     tourist = Tourist.new(tourist_params)
     tourist.username = "Anonymous"

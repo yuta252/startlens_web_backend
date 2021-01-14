@@ -13,8 +13,8 @@ Rails.application.routes.draw do
 
       namespace :tourist do
         post '/token', to: 'tokens#create', as: :tokens
-        resources :spots, only: [:index]
-        resources :exhibits, only: [:show]
+        get '/load', to: 'tourists#load', as: :load
+        resources :spots, only: [:index, :show]
         resources :tourists, only: [:create, :update]
       end
     end

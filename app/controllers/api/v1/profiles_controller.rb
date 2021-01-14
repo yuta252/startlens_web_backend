@@ -14,6 +14,7 @@ class Api::V1::ProfilesController < ApplicationController
       profile_serializer = parse_json(@profile)
       render json: profile_serializer, status: :ok
     else
+      logger.debug("Profile model isn't updated: #{@profile.errors.messages}")
       render json: { errors: @profile.errors }, status: :unprocessable_entity
     end
   end
