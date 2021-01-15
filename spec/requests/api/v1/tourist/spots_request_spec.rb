@@ -14,11 +14,24 @@ RSpec.describe "Api::V1::Tourist::Spots", type: :request do
       @multi_profile3 = create(:multi_profile3, user_id: @user3.id)
     end
 
+    let(:tourist) { FactoryBot.create(:tourist) }
+    let(:tourist2) { FactoryBot.create(:tourist2) }
+
     it "responds succesfully" do
       get api_v1_tourist_spots_url({})
       expect(response).to have_http_status(:success)
       json = JSON.parse(response.body)
       expect(json["data"].count).to eq 3
+    end
+
+    it "responds rating" do
+      FactoryBot.create(:review, user_id: @user1.id, tourist_id: tourist.id)
+      FactoryBot.create(:review2, user_id: @user1.id, tourist_id: tourist2.id)
+      get api_v1_tourist_spots_url({})
+      expect(response).to have_http_status(:success)
+      json = JSON.parse(response.body)
+      expect(json["data"][0]["profile"]["rating"]).to eq 4.0
+      expect(json["data"][0]["profile"]["ratingCount"]).to eq 2
     end
 
     it "succeeds to search by a category" do
