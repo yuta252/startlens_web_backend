@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_13_040417) do
+ActiveRecord::Schema.define(version: 2021_01_15_045707) do
 
   create_table "exhibit_favorites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "exhibit_id", null: false
@@ -78,8 +78,8 @@ ActiveRecord::Schema.define(version: 2021_01_13_040417) do
   create_table "profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.integer "major_category", default: 0
-    t.decimal "latitude", precision: 10
-    t.decimal "longitude", precision: 10
+    t.decimal "latitude", precision: 12, scale: 8
+    t.decimal "longitude", precision: 12, scale: 8
     t.string "telephone", default: ""
     t.text "company_site"
     t.datetime "created_at", null: false

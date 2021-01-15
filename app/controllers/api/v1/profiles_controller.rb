@@ -22,7 +22,7 @@ class Api::V1::ProfilesController < ApplicationController
   private
 
   def profile_params
-    params.require(:profile).permit(:major_category, :telephone, :company_site, :image_file)
+    params.require(:profile).permit(:major_category, :telephone, :company_site, :image_file, :latitude, :longitude)
   end
 
   def check_owner
