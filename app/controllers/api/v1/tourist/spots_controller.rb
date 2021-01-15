@@ -16,4 +16,11 @@ class Api::V1::Tourist::SpotsController < ApplicationController
     }
     render json: spots, root: "data", each_serializer: SpotSerializer, meta: options, adapter: :json
   end
+
+  def show
+    spot = User.find(params[:id])
+    exhibits = spot.exhibits
+    exhibit_serializer = parse_json(exhibits)
+    render json: exhibit_serializer, status: :ok
+  end
 end

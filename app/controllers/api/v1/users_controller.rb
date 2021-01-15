@@ -29,7 +29,7 @@ class Api::V1::UsersController < ApplicationController
             raise ActiveRecord::RecordInvalid
           end
         else
-          logger.debug("User model isn't create: #{@user.errors.messages}")
+          logger.debug("User model isn't created: #{@user.errors.messages}")
           render json: { errors: @user.errors }, status: :unprocessable_entity
         end
       end

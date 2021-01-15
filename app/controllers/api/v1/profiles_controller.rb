@@ -14,6 +14,7 @@ class Api::V1::ProfilesController < ApplicationController
       profile_serializer = parse_json(@profile)
       render json: profile_serializer, status: :ok
     else
+      logger.debug("Profile model isn't updated: #{@profile.errors.messages}")
       render json: { errors: @profile.errors }, status: :unprocessable_entity
     end
   end
@@ -21,7 +22,7 @@ class Api::V1::ProfilesController < ApplicationController
   private
 
   def profile_params
-    params.require(:profile).permit(:major_category, :telephone, :company_site, :image_file)
+    params.require(:profile).permit(:major_category, :telephone, :company_site, :image_file, :latitude, :longitude)
   end
 
   def check_owner
