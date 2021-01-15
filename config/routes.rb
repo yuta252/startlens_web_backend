@@ -17,6 +17,8 @@ Rails.application.routes.draw do
         resources :spots, only: [:index, :show]
         resources :tourists, only: [:create, :update]
         resources :reviews, only: [:create, :destroy]
+        resources :favorites, only: [:create, :destroy]
+        resources :exhibit_favorites, only: [:create, :destroy]
       end
     end
   end

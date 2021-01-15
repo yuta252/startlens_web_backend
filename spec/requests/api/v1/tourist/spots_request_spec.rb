@@ -17,49 +17,69 @@ RSpec.describe "Api::V1::Tourist::Spots", type: :request do
     let(:tourist) { FactoryBot.create(:tourist) }
     let(:tourist2) { FactoryBot.create(:tourist2) }
 
-    it "responds succesfully" do
-      get api_v1_tourist_spots_url({})
-      expect(response).to have_http_status(:success)
-      json = JSON.parse(response.body)
-      expect(json["data"].count).to eq 3
+    context "as unauthorized" do
+      it "responds succesfully" do
+        get api_v1_tourist_spots_url({})
+        expect(response).to have_http_status(:success)
+        json = JSON.parse(response.body)
+        expect(json["data"].count).to eq 3
+      end
+
+      it "responds rating" do
+        FactoryBot.create(:review, user_id: @user1.id, tourist_id: tourist.id)
+        FactoryBot.create(:review2, user_id: @user1.id, tourist_id: tourist2.id)
+        get api_v1_tourist_spots_url({})
+        expect(response).to have_http_status(:success)
+        json = JSON.parse(response.body)
+        expect(json["data"][0]["profile"]["rating"]).to eq 4.0
+        expect(json["data"][0]["profile"]["ratingCount"]).to eq 2
+      end
+  
+      it "spot isFavorite responds false for all spots" do
+        get api_v1_tourist_spots_url({})
+        json = JSON.parse(response.body)
+        json["data"].map{ |spot|
+          expect(spot["isFavorite"]).to eq false
+        }
+      end
+  
+      it "succeeds to search by a category" do
+        get api_v1_tourist_spots_url({category: 27})
+        expect(response).to have_http_status(:success)
+        json = JSON.parse(response.body)
+        expect(json["data"][0]["profile"]["majorCategory"]).to eq 27
+      end
+  
+      it "succeeds to search by a username" do
+        get api_v1_tourist_spots_url({query: "赤レンガ"})
+        expect(response).to have_http_status(:success)
+        json = JSON.parse(response.body)
+        expect(json["data"][0]["multiProfiles"][0]["username"]).to eq "赤レンガ倉庫"
+      end
+  
+      it "succeeds to search by a prefecture" do
+        get api_v1_tourist_spots_url({prefecture: "神奈川"})
+        expect(response).to have_http_status(:success)
+        json = JSON.parse(response.body)
+        expect(json["data"][0]["multiProfiles"][0]["addressPrefecture"]).to eq "神奈川"
+      end
+  
+      it "succeeds to search by count" do
+        get api_v1_tourist_spots_url({items: 2})
+        expect(response).to have_http_status(:success)
+        json = JSON.parse(response.body)
+        expect(json["data"].count).to eq 2
+      end
     end
 
-    it "responds rating" do
-      FactoryBot.create(:review, user_id: @user1.id, tourist_id: tourist.id)
-      FactoryBot.create(:review2, user_id: @user1.id, tourist_id: tourist2.id)
-      get api_v1_tourist_spots_url({})
-      expect(response).to have_http_status(:success)
-      json = JSON.parse(response.body)
-      expect(json["data"][0]["profile"]["rating"]).to eq 4.0
-      expect(json["data"][0]["profile"]["ratingCount"]).to eq 2
-    end
-
-    it "succeeds to search by a category" do
-      get api_v1_tourist_spots_url({category: 27})
-      expect(response).to have_http_status(:success)
-      json = JSON.parse(response.body)
-      expect(json["data"][0]["profile"]["majorCategory"]).to eq 27
-    end
-
-    it "succeeds to search by a username" do
-      get api_v1_tourist_spots_url({query: "赤レンガ"})
-      expect(response).to have_http_status(:success)
-      json = JSON.parse(response.body)
-      expect(json["data"][0]["multiProfiles"][0]["username"]).to eq "赤レンガ倉庫"
-    end
-
-    it "succeeds to search by a prefecture" do
-      get api_v1_tourist_spots_url({prefecture: "神奈川"})
-      expect(response).to have_http_status(:success)
-      json = JSON.parse(response.body)
-      expect(json["data"][0]["multiProfiles"][0]["addressPrefecture"]).to eq "神奈川"
-    end
-
-    it "succeeds to search by count" do
-      get api_v1_tourist_spots_url({items: 2})
-      expect(response).to have_http_status(:success)
-      json = JSON.parse(response.body)
-      expect(json["data"].count).to eq 2
+    context "as authorized" do
+      it "spot that push favorite responds isFavorite: true" do
+        Favorite.create(user_id: @user1.id, tourist_id: tourist.id)
+        get api_v1_tourist_spots_url({}), headers: { Authorization: JsonWebToken.encode(tourist_id: tourist.id)}
+        json = JSON.parse(response.body)
+        spot = json["data"].select{ |spot| spot["id"] == @user1.id }
+        expect(spot[0]["isFavorite"]).to eq true
+      end
     end
   end
 
