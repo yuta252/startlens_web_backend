@@ -1,11 +1,18 @@
 class SpotProfileSerializer < ActiveModel::Serializer
-  attributes :id, :user_id, :major_category, :telephone, :company_site, :url, :rating
+  attributes :id, :user_id, :major_category, :telephone, :company_site, :url, :rating, :rating_count
+
+  attr_accessor :static
 
   def url
     object.thumbnail.url
   end
 
   def rating
-    3.5
+    self.static = Review.review_static(object.user_id)
+    self.static[:average]
+  end
+
+  def rating_count
+    self.static[:count]
   end
 end

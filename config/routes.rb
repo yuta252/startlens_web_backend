@@ -16,6 +16,7 @@ Rails.application.routes.draw do
         get '/load', to: 'tourists#load', as: :load
         resources :spots, only: [:index, :show]
         resources :tourists, only: [:create, :update]
+        resources :reviews, only: [:create, :destroy]
       end
     end
   end

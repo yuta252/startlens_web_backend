@@ -40,6 +40,10 @@ ja:
         birth: 生年
         country: 国
         lang: 言語
+      review:
+        lang: 言語
+        post_review: レビュー
+        rating: 評価
   errors:
     messages:
       carrierwave_processing_error: 処理できませんでした
