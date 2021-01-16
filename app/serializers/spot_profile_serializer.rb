@@ -1,5 +1,5 @@
 class SpotProfileSerializer < ActiveModel::Serializer
-  attributes :id, :user_id, :major_category, :telephone, :company_site, :url, :rating, :rating_count
+  attributes :id, :user_id, :major_category, :telephone, :company_site, :url, :rating, :rating_count, :latitude, :longitude
 
   attr_accessor :static
 
