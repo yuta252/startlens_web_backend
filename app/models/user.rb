@@ -26,10 +26,10 @@ class User < ApplicationRecord
     where('major_category LIKE ?', "#{keyword}")
   }
   scope :filter_by_username, lambda { |keyword|
-    where('username LIKE ?', "%#{keyword}%")
+    where('LOWER(username) LIKE ?', "%#{keyword}%")
   }
   scope :filter_by_prefecture, lambda { |keyword|
-    where('address_prefecture LIKE ?', "%#{keyword}%")
+    where('LOWER(address_prefecture) LIKE ?', "#{keyword}%").select(:id).distinct
   }
 
   def self.search(params={})
