@@ -14,6 +14,8 @@ class User < ApplicationRecord
   has_one :profile, dependent: :destroy
   has_many :multi_profiles, dependent: :destroy
   has_many :exhibits, dependent: :destroy
+  has_many :reviews, dependent: :destroy
+  has_many :favorites, dependent: :destroy
 
   scope :with_profile, -> { joins(:profile) }
   scope :with_multi_profile, -> { joins(:multi_profiles) }

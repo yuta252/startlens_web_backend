@@ -14,7 +14,7 @@ class Api::V1::Tourist::SpotsController < ApplicationController
         prefecture: params[:prefecture] ? params[:prefecture] : ""
       }
     }
-    render json: spots, root: "data", each_serializer: SpotSerializer, scope: { tourist_id: current_tourist&.id }, meta: options, adapter: :json
+    render json: spots, root: "data", each_serializer: SpotSerializer, scope: { tourist_id: current_tourist&.id }, meta: options, include: '**', adapter: :json
   end
 
   def show

@@ -3,6 +3,7 @@ class SpotSerializer < ActiveModel::Serializer
 
   has_one :profile, serializer: SpotProfileSerializer
   has_many :multi_profiles, serializer: SpotMultiProfileSerializer
+  has_many :reviews, serializer: ReviewSerializer
 
   def is_favorite
     tourist_id = scope[:tourist_id]
