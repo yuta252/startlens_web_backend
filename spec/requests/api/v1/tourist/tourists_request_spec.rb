@@ -7,7 +7,7 @@ RSpec.describe "Api::V1::Tourist::Tourists", type: :request do
         post api_v1_tourist_tourists_url, params: { tourist: FactoryBot.attributes_for(:tourist1) }
         expect(response).to have_http_status(:created)
         json = JSON.parse(response.body)
-        expect(json["email"]).to eq "sample1@gmail.com"
+        expect(json["email"]).to eq "example1@gmail.com"
       end
 
       it "adds a tourist" do

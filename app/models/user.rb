@@ -19,6 +19,7 @@ class User < ApplicationRecord
 
   scope :with_profile, -> { joins(:profile) }
   scope :with_multi_profile, -> { joins(:multi_profiles) }
+  scope :with_favorite, -> { joins(:favorites) }
   scope :extract_by_count, lambda { |keyword|
     order(created_at: :desc).limit(keyword)
   }
@@ -31,6 +32,9 @@ class User < ApplicationRecord
   scope :filter_by_prefecture, lambda { |keyword|
     where('LOWER(address_prefecture) LIKE ?', "#{keyword}%").select(:id).distinct
   }
+  scope :filter_by_tourist, lambda { |keyword|
+    where('tourist_id = ?', keyword)
+  }
 
   def self.search(params={})
     spots = User.all
@@ -38,6 +42,11 @@ class User < ApplicationRecord
     spots = spots.with_profile.filter_by_category(params[:category]) if params[:category]
     spots = spots.with_multi_profile.filter_by_username(params[:query]) if params[:query]
     spots = spots.with_multi_profile.filter_by_prefecture(params[:prefecture]) if params[:prefecture]
+    spots
+  end
+
+  def self.get_favorite(tourist_id)
+    spots = User.with_favorite.filter_by_tourist(tourist_id)
     spots
   end
 end

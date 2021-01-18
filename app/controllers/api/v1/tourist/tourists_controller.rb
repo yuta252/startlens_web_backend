@@ -7,9 +7,10 @@ class Api::V1::Tourist::TouristsController < ApplicationController
   def load
     if current_tourist.nil?
       render json: { id: 0, email: "", username: "", thumbnail_url: "", sex: 0, birth: 0, country: "", lang: "" }, status: :ok
+    else
+      tourist_serializer = parse_json(current_tourist)
+      render json: tourist_serializer, status: :ok
     end
-    tourist_serializer = parse_json(current_tourist)
-    render json: tourist_serializer, status: :ok
   end
 
   def create

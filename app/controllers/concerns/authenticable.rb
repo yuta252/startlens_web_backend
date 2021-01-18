@@ -4,6 +4,7 @@ module Authenticable
 
     header = request.headers['Authorization']
     return nil if header.nil?
+    return nil if header == "undefined"
 
     decoded = JsonWebToken.decode(header)
     @current_user = User.find(decoded[:user_id]) rescue ActiveRecord::RecordNotFound
@@ -14,6 +15,8 @@ module Authenticable
 
     header = request.headers['Authorization']
     return nil if header.nil?
+    logger.debug("header: #{header}")
+    return nil if header == "undefined"
 
     decoded = JsonWebToken.decode(header)
     @current_tourist = Tourist.find(decoded[:tourist_id]) rescue ActiveRecord::RecordNotFound
