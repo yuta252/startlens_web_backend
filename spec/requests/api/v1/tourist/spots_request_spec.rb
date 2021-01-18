@@ -72,11 +72,12 @@ RSpec.describe "Api::V1::Tourist::Spots", type: :request do
       end
     end
 
-    context "as authorized" do
+    context "as authorized", focus:true do
       it "spot that push favorite responds isFavorite: true" do
         Favorite.create(user_id: @user1.id, tourist_id: tourist.id)
         get api_v1_tourist_spots_url({}), headers: { Authorization: JsonWebToken.encode(tourist_id: tourist.id)}
         json = JSON.parse(response.body)
+        p json
         spot = json["data"].select{ |spot| spot["id"] == @user1.id }
         expect(spot[0]["isFavorite"]).to eq true
       end

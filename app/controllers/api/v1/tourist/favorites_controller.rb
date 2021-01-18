@@ -1,8 +1,13 @@
 class Api::V1::Tourist::FavoritesController < ApplicationController
-  before_action :check_login_tourist, only: [:create, :destroy]
+  before_action :check_login_tourist, only: [:index, :create, :destroy]
   before_action :set_favorite, only: [:destroy]
   before_action :check_owner, only: [:destroy]
   before_action :snakeize_params, only: [:create, :destroy]
+
+  def index
+    spots = User.get_favorite(current_tourist.id)
+    render json: spots, each_serializer: SpotSerializer, scope: { tourist_id: current_tourist&.id }, include: '**'
+  end
 
   def create
     favorite = current_tourist.favorites.build(favorite_params)
@@ -27,7 +32,7 @@ class Api::V1::Tourist::FavoritesController < ApplicationController
   end
 
   def set_favorite
-    @favorite = Favorite.find(params[:id])
+    @favorite = Favorite.find_by(user_id: params[:id], tourist_id: current_tourist.id)
   end
 
   def check_owner
