@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       resources :multi_profiles, only: [:index, :create, :update, :destroy]
       resources :exhibits, only: [:index, :create, :update, :destroy]
       resources :multi_exhibits, only: [:create, :update, :destroy]
+      resources :dashboards, onley: [:index]
 
       namespace :tourist do
         post '/token', to: 'tokens#create', as: :tokens
