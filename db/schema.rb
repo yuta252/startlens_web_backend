@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_15_045707) do
+ActiveRecord::Schema.define(version: 2021_01_18_045355) do
 
   create_table "exhibit_favorites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "exhibit_id", null: false
@@ -116,6 +116,15 @@ ActiveRecord::Schema.define(version: 2021_01_15_045707) do
     t.index ["email"], name: "index_tourists_on_email", unique: true
   end
 
+  create_table "user_statistics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "tourist_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tourist_id"], name: "index_user_statistics_on_tourist_id"
+    t.index ["user_id"], name: "index_user_statistics_on_user_id"
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", null: false
     t.string "password_digest", null: false
@@ -135,4 +144,6 @@ ActiveRecord::Schema.define(version: 2021_01_15_045707) do
   add_foreign_key "profiles", "users"
   add_foreign_key "reviews", "tourists"
   add_foreign_key "reviews", "users"
+  add_foreign_key "user_statistics", "tourists"
+  add_foreign_key "user_statistics", "users"
 end

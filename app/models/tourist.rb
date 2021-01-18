@@ -20,6 +20,7 @@ class Tourist < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :exhibit_favorites, dependent: :destroy
+  has_many :user_statistics
 
   mount_uploader :thumbnail, TouristThumbnailUploader
 
