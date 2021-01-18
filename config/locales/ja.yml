@@ -9,6 +9,7 @@ ja:
       review: レビュー
       favorite: お気に入り
       exhibit_favorite: お気に入り
+      user_statistic: ユーザー統計
     attributes:
       user:
         email: メールアドレス
@@ -44,6 +45,8 @@ ja:
         lang: 言語
         post_review: レビュー
         rating: 評価
+      user_statistic:
+        created_at: 登録日
   errors:
     messages:
       carrierwave_processing_error: 処理できませんでした
