@@ -7,8 +7,8 @@ class UserStatistic < ApplicationRecord
   belongs_to :user
 
   scope :with_toursit, -> { joins(:tourist) }
-  scope :count_by_hour, -> { group("HOUR(user_statistics.created_at)").order("HOUR(user_statistics.created_at)").count }
-  scope :count_by_date, -> { group("DATE(user_statistics.created_at)").order("DATE(user_statistics.created_at)").count }
+  scope :count_by_hour, -> { group("HOUR(CONVERT_TZ(user_statistics.created_at, '+00:00', '+09:00'))").order("HOUR(CONVERT_TZ(user_statistics.created_at, '+00:00', '+09:00'))").count }
+  scope :count_by_date, -> { group("DATE(CONVERT_TZ(user_statistics.created_at, '+00:00', '+09:00'))").order("DATE(CONVERT_TZ(user_statistics.created_at, '+00:00', '+09:00'))").count }
   scope :count_by_sex, -> { group("tourists.sex").order("count(tourists.sex) desc").count }
   scope :count_by_birth, -> { group("tourists.birth").order("tourists.birth").count }
   scope :count_by_country, -> { group("tourists.country").order("count(tourists.country) desc").count }

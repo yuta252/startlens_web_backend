@@ -2,7 +2,7 @@ class Api::V1::Tourist::TouristsController < ApplicationController
   before_action :check_login_tourist, only: [:update]
   before_action :set_tourist, only: [:update]
   before_action :check_owner, only: [:update]
-  before_action :snakeize_params, only: [:update]
+  before_action :snakeize_params, only: [:create, :update]
 
   def load
     if current_tourist.nil?
@@ -30,12 +30,23 @@ class Api::V1::Tourist::TouristsController < ApplicationController
   end
 
   def update
-    if @tourist.update(tourist_params)
-      tourist_serializer = parse_json(@tourist)
-      render json: tourist_serializer, status: :ok
+    if params[:tourist][:image_file]
+      logger.debug("#{params[:tourist][:image_file]}")
+      if @tourist.update_attributes(image_file: params[:tourist][:image_file])
+        tourist_serializer = parse_json(@tourist)
+        render json: tourist_serializer, status: :ok
+      else
+        logger.debug("Tourist model isn't updated: #{@tourist.errors.messages}")
+        render json: { errors: @tourist.errors }, status: :unprocessable_entity
+      end
     else
-      logger.debug("Tourist model isn't updated: #{@tourist.errors.messages}")
-      render json: { errors: @tourist.errors }, status: :unprocessable_entity
+      if @tourist.update(tourist_params)
+        tourist_serializer = parse_json(@tourist)
+        render json: tourist_serializer, status: :ok
+      else
+        logger.debug("Tourist model isn't updated: #{@tourist.errors.messages}")
+        render json: { errors: @tourist.errors }, status: :unprocessable_entity
+      end
     end
   end
 
