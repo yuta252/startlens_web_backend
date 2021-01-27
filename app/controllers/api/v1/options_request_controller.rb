@@ -1,7 +1,7 @@
 class Api::V1::OptionsRequestController < ApplicationController
   ACCESS_CONTROL_ALLOW_METHODS = %w(GET OPTIONS PUT DELETE POST PATCH).freeze
   ACCESS_CONTROL_ALLOW_HEADERS = %w(Accept Origin Content-Type Authorization).freeze
-  ACCESS_CONTROL_MAX_AGE - 86_400
+  ACCESS_CONTROL_MAX_AGE = 86_400
 
   def preflight
     set_preflight_headers!

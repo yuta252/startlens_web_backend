@@ -15,7 +15,7 @@ class ProfileThumbnailUploader < CarrierWave::Uploader::Base
   # Convert jpg format and then save
   process convert: "jpg"
 
-  # Exif情報のOrientationを利用して正しい方向に回転させExif情報を削除する
+  # rotate appropreate direction by using Exif info and then remove Exif
   process :fix_exif_rotation_and_strip_exif
 
   # Override the directory where uploaded files will be stored.
@@ -33,7 +33,7 @@ class ProfileThumbnailUploader < CarrierWave::Uploader::Base
   # end
 
   # Process files as they are uploaded:
-  process resize_to_fill: [300, 300, "Center"]
+  process resize_to_fill: [500, 500, "Center"]
 
   # Create different versions of your uploaded files:
   # version :thumb do

@@ -19,7 +19,7 @@ RSpec.describe "Api::V1::MultiProfiles", type: :request do
 
     context "valid with parameter" do
 
-      it "responds successfully" do
+      it "responds successfully", focus:true do
         post api_v1_multi_profiles_url, params: { multi_profile: FactoryBot.attributes_for(:multi_profile, user_id: user.id) },
               headers: { Authorization: JsonWebToken.encode(user_id: user.id)}
         expect(response).to have_http_status(:success)

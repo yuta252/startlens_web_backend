@@ -26,4 +26,18 @@ FactoryBot.define do
     holiday { "Every Tuesday" }
     translated { 0 }
   end
+
+  factory :multi_profile3, class: MultiProfile do
+    association :user
+    lang { "ja" }
+    username { "赤レンガ倉庫" }
+    self_intro { "赤レンガ倉庫は" }
+    address_prefecture { "神奈川" }
+    address_city { "横浜市" }
+    address_street { "1-1" }
+    entrance_fee { "無料" }
+    business_hours { "10:00 - 20:00" }
+    holiday { "年中無休" }
+    translated { 0 }
+  end
 end
