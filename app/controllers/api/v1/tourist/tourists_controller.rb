@@ -31,8 +31,7 @@ class Api::V1::Tourist::TouristsController < ApplicationController
 
   def update
     if params[:tourist][:image_file]
-      logger.debug("#{params[:tourist][:image_file]}")
-      if @tourist.update_attributes(image_file: params[:tourist][:image_file])
+      if @tourist.update_attribute(:image_file, params[:tourist][:image_file])
         tourist_serializer = parse_json(@tourist)
         render json: tourist_serializer, status: :ok
       else
