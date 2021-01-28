@@ -1,5 +1,7 @@
 # Startlens
 
+![startlens_preview1](https://user-images.githubusercontent.com/42575165/106090819-685aa580-616e-11eb-8a6f-a19f471e2226.png)
+
 ## サイト概要
 
 オンラインから観光地を検索し写真を閲覧することで擬似的に観光ツアーを体験できるアプリです。
