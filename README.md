@@ -43,5 +43,21 @@ Instagramはユーザー同士が写真を投稿し楽しむことが利用用�
 - バックエンド：Ruby on Rails
 - フロントエンド：React.js(Redux, TypeScript), Chart.js
 
+## 開発環境の設定
+
+```
+$ git clone https://github.com/yuta252/startlens_web_backend.git
+
+# 開発環境用Dockerのビルド
+$ docker-compose -f docker-compose-dev.yml build
+
+# 開発用データベースの初期設定
+$ docker-compose -f docker-compose-dev.yml exec app bin/rails db:migrate
+$ docker-compose -f docker-compose-dev.yml exec app bin/rails db:seed
+
+# 開発用サーバーの起動
+$ docker-compose -f docker-compose-dev.yml up -d
+```
+
 ## 使用素材
 - [Unsplash](https://unsplash.com/)
