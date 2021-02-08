@@ -32,6 +32,8 @@ gem 'dotenv-rails'
 gem 'fog-aws'
 # Use for seed data
 gem 'faker'
+# cron job
+gem 'whenever', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
