@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/startlens
+      - ./log_data:/startlens/log
+      - ./public_data:/startlens/public
+      - ./tmp_data:/startlens/tmp
+      - ./sockets:/startlens/tmp/sockets
+    ports:
+      - "3000:3000"
+    tty: true
+    stdin_open: true
+    command: bundle exec rails s -e production
+  nginx:
+    build:
+      context: .
+      dockerfile: ./nginx/Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+    volumes:
+      - ./public_data:/startlens/public
+      - ./tmp_data:/startlens/tmp
+      - ./sockets:/startlens/tmp/sockets

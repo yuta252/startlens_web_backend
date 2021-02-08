@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  namespace: webapp
+  labels:
+    app: startlens
+  name: startlens
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: startlens
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: startlens
+    spec:
+      containers:
+      - image: 328517882653.dkr.ecr.ap-northeast-1.amazonaws.com/startlens/backend-app:v1.0
+        imagePullPolicy: Always
+        name: webapp
+        command: ["bundle", "exec", "rails", "s", "-e", "production"]
+        ports:
+        - containerPort: 3000
+        resources: {}
+        env:
+          - name: DB_USERNAME_PROD
+            valueFrom:
+              secretKeyRef:
+                name: db-config
+                key: db-username
+          - name: DB_PASSWORD_PROD
+            valueFrom:
+              secretKeyRef:
+                name: db-config
+                key: db-password
+          - name: DB_HOST_PROD
+            valueFrom:
+              secretKeyRef:
+                name: db-config
+                key: db-host
+          - name: DB_DATABASE_PROD
+            valueFrom:
+              secretKeyRef:
+                name: db-config
+                key: db-database
+          - name: AWS_ACCESS_KEY_ID
+            valueFrom:
+              secretKeyRef:
+                name: s3-config
+                key: aws-access-key-id
+          - name: AWS_SECRET_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: s3-config
+                key: aws-secret-access-key
+          - name: AWS_DEFAULT_REGION
+            valueFrom:
+              secretKeyRef:
+                name: s3-config
+                key: aws-default-region
+status: {}
