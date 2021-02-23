@@ -6,5 +6,5 @@ class Batch::LogCreate
     )
     user.save(validate: false)
     p "create new log"
-  end
+  endbundle
 end
