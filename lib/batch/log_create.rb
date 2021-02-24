@@ -5,6 +5,5 @@ class Batch::LogCreate
       tourist_id: rand(1..100).to_i
     )
     user.save(validate: false)
-    p "create new log"
   end
 end
