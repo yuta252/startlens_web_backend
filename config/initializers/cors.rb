@@ -8,7 +8,7 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
     if Rails.env.production?
-      origins 'http://startlens.com.s3-website-ap-northeast-1.amazonaws.com','http://admin.startlens.com.s3-website-ap-northeast-1.amazonaws.com'
+      origins 'http://www.startlens.jp','http://www.admin.startlens.jp'
     else
       origins '*'
     end
