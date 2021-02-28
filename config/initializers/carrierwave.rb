@@ -21,6 +21,10 @@ if Rails.env.production?
   end
 else
   CarrierWave.configure do |config|
-    config.asset_host = 'http://0.0.0.0:80'
+    # local server settings
+    # config.asset_host = 'http://0.0.0.0:80'
+
+    # Actual machine test for iOS
+    config.asset_host = 'http://startlens.local'
   end
 end
