@@ -7,21 +7,30 @@ class Api::V1::ExhibitsController < ApplicationController
   include Paginable
 
   def index
-    exhibits = current_user.exhibits.page(current_page).per(per_page)
-
-    options = {
-      params: {
-        last: exhibits.total_pages
+    if params[:page].nil?
+      exhibits = current_user.exhibits
+      options = {
+        params: {
+          last: 1
+        }
       }
-    }
+    else
+      exhibits = current_user.exhibits.page(current_page).per(per_page)
+      options = {
+        params: {
+          last: exhibits.total_pages
+        }
+      }
+    end
+
     render json: exhibits, root: "data", each_serializer: ExhibitSerializer, meta: options, adapter: :json
   end
 
   # At create action, save exhibit, picture, multi_exhibit (in this order) in a series of processing.
   # Implement transaction process below. If some model validation failed, rollback process and return error json serializer.
   def create
-    exhibit = current_user.exhibits.build()
     begin
+      exhibit = current_user.exhibits.build()
       if exhibit.save
         # save all picture at first and then save multiple language info.
         if Picture.create_pictures(exhibit.id, params[:exhibit])
