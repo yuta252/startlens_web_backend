@@ -8,9 +8,9 @@ class Api::V1::Tourist::SpotsController < ApplicationController
       params: {
         last: spots.total_pages,
         page: current_page,
-        count: params[:items] ? params[:items] : 0,
+        count: params[:items] ? params[:items] : "",
         query: params[:query] ? params[:query] : "",
-        category: params[:category] ? params[:category] : 0,
+        category: params[:category] ? params[:category] : "",
         prefecture: params[:prefecture] ? params[:prefecture] : ""
       }
     }

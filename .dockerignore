@@ -1,0 +1,7 @@
+log/*
+log_data/*
+mysql_data/*
+public_data/*
+sockets
+tmp_data/*
+.env
