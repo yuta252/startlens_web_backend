@@ -28,6 +28,7 @@
 - RSpecテスト
 
 ## 開発環境
+
 - Docker
 - バックエンド：Ruby on Rails
 - フロントエンド：React.js(Redux, TypeScript), Chart.js
@@ -47,6 +48,11 @@ $ docker-compose -f docker-compose-dev.yml exec app bin/rails db:seed
 # 開発用サーバーの起動
 $ docker-compose -f docker-compose-dev.yml up -d
 ```
+
+## 本番環境
+
+- AWS(EKS, RDS, S3, ALB)
+- Kubernetes
 
 ## 使用素材
 - [Unsplash](https://unsplash.com/)
